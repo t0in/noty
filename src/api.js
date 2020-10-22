@@ -74,6 +74,7 @@ export let Defaults = {
   },
   id: false,
   force: false,
+  stopTimerOnHover: false,
   killer: false,
   queue: 'global',
   container: false,
@@ -380,14 +381,17 @@ export function fire (ref, eventName) {
 export function openFlow (ref) {
   fire(ref, 'afterShow')
   queueClose(ref)
+  if(!ref.options.stopTimerOnHover) {
+    Utils.addListener(ref.barDom, 'mouseenter', () => {
+      dequeueClose(ref)
+    })
+  }
 
-  Utils.addListener(ref.barDom, 'mouseenter', () => {
-    dequeueClose(ref)
-  })
-
-  Utils.addListener(ref.barDom, 'mouseleave', () => {
-    queueClose(ref)
-  })
+  if(!ref.options.stopTimerOnHover) {
+    Utils.addListener(ref.barDom, 'mouseleave', () => {
+      queueClose(ref)
+    })
+  }
 }
 
 /**
