@@ -31,7 +31,7 @@ export default class Noty {
     this.killable = this.options.timeout || this.options.closeWith.length > 0
     this.hasSound = this.options.sounds.sources.length > 0
     this.soundPlayed = false
-    this.stopTimerOnHover = this.options.stopTimerOnHover || false
+    this.stopTimerOnHover = this.options.stopTimerOnHover || true
     this.listeners = {
       beforeShow: [],
       onShow: [],
